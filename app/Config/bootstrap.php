@@ -111,4 +111,4 @@ CakeLog::config('error', array(
 ));
 
 
-CakePlugin::load(array('Migrations'));
+CakePlugin::load(array('Migrations', 'DebugKit'));
