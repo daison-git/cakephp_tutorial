@@ -3,6 +3,21 @@
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
 
+    public function isAuthorized($user) {
+        if ($this->action === 'add') {
+            return true;
+        }
+
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $postId = (int)$this->request->params['pass'][0];
+            if ($this->Post->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
+    }
+
     public function index() {
         $this->set('posts', $this->Post->find('all'));
     }

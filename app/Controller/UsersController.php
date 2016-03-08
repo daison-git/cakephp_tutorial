@@ -11,7 +11,7 @@ class UsersController extends AppController {
 
     public function login() {
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
+            if ($this->Auth->login($this->request->data)) {
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Flash->error(__('Invalid username or password, try again'));
@@ -19,7 +19,8 @@ class UsersController extends AppController {
         }
     }
 
-    public function logout() {
+    // logout にすると display()を呼ぼうとしてしまう
+    public function logouts() {
         $this->redirect($this->Auth->logout());
     }
 
